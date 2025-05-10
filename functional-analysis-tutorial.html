@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Functional Analysis Tutorial</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        .chapter {
+            margin-bottom: 40px;
+        }
+        .definition, .theorem, .example {
+            background-color: #f9f9f9;
+            border-left: 5px solid #007BFF;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        code {
+            background-color: #eee;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Functional Analysis: A Didactic Tutorial</h1>
+
+<div class="chapter" id="chapter-1">
+    <h2>Chapter 1: Real Analysis: A Quick Review</h2>
+    <p>This chapter revisits fundamental concepts of real analysis necessary for understanding functional analysis:</p>
+    <ul>
+        <li>Limits and continuity</li>
+        <li>Differentiation and integration</li>
+        <li>Metric spaces and completeness</li>
+    </ul>
+    <div class="definition">
+        <strong>Definition (Metric Space)</strong>: A metric space is a set \( X \) with a function \( d: X \times X \to [0,\infty) \) satisfying positivity, symmetry, and triangle inequality.
+    </div>
+</div>
+
+<div class="chapter" id="chapter-2">
+    <h2>Chapter 2: Normed Vector Spaces</h2>
+    <p>An introduction to vector spaces equipped with a norm.</p>
+    <div class="definition">
+        <strong>Definition (Norm)</strong>: A norm on a vector space \( V \) over \( \mathbb{R} \) or \( \mathbb{C} \) is a function \( \|\cdot\| : V \to [0, \infty) \) that satisfies positivity, homogeneity, and triangle inequality.
+    </div>
+    <div class="example">
+        <strong>Example:</strong> \( \mathbb{R}^n \) with \( \|x\|_2 = \sqrt{x_1^2 + \dots + x_n^2} \) is a normed space.
+    </div>
+</div>
+
+<div class="chapter" id="chapter-3">
+    <h2>Chapter 3: Banach Spaces</h2>
+    <p>A Banach space is a complete normed vector space.</p>
+    <div class="theorem">
+        <strong>Theorem (Banach Fixed-Point)</strong>: Every contraction on a complete metric space has exactly one fixed point.
+    </div>
+    <p>Applications include solving integral and differential equations.</p>
+</div>
+
+<!-- More chapters will be added iteratively -->
+
+</body>
+</html>
