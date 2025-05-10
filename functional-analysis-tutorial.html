@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>
+        MathJax = {
+          tex: {
+            inlineMath: [['\\(', '\\)']],
+            displayMath: [['\\[', '\\]']]
+          },
+          svg: { fontCache: 'global' }
+        };
+      </script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+      
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Functional Analysis Tutorial</title>
@@ -46,12 +57,92 @@
     <p>Continuity is defined as the property that the function value and the limit coincide:</p>
     <div class="definition">
         <strong>Definition (Continuity):</strong> A function \( f \) is continuous at \( x = a \) if \( \lim_{x \to a} f(x) = f(a) \).</div>
-
+        <h4>Proof and Worked Example</h4>
+        <div class="example">
+          <strong>Example:</strong> Let \( f(x) = 3x^2 - 5 \). Show that \( \lim_{x \to 2} f(x) = 7 \) using the epsilon-delta definition.
+        </div>
+        <div class="proof">
+          <strong>Proof:</strong> We want to show that for every \( \varepsilon > 0 \), there exists \( \delta > 0 \) such that:
+          \[
+            |x - 2| < \delta \Rightarrow |f(x) - 7| < \varepsilon.
+          \]
+          Note that:
+          \[
+            f(x) = 3x^2 - 5 \Rightarrow f(x) - 7 = 3x^2 - 12 = 3(x^2 - 4) = 3(x - 2)(x + 2).
+          \]
+          So,
+          \[
+            |f(x) - 7| = 3|x - 2||x + 2|.
+          \]
+          To bound this, restrict \( \delta \leq 1 \) so that \( |x - 2| < 1 \Rightarrow 1 < x < 3 \Rightarrow |x + 2| < 5 \). Then:
+          \[
+            |f(x) - 7| < 3|x - 2| \cdot 5 = 15|x - 2|.
+          \]
+          Thus, to ensure \( |f(x) - 7| < \varepsilon \), it suffices to choose \( \delta = \min\left(1, \frac{\varepsilon}{15}\right) \).
+        </div>
+        
+        <h4>Exercises</h4>
+        <div class="exercise">
+          <strong>1.</strong> Let \( f(x) = \frac{1}{x} \). Is \( f \) continuous at \( x = 0 \)? Justify using the epsilon-delta definition.
+        </div>
+        <div class="exercise">
+          <strong>2.</strong> Prove that \( f(x) = x^2 \) is continuous everywhere on \( \mathbb{R} \) using the epsilon-delta definition.
+        </div>
+        <div class="exercise">
+          <strong>3.</strong> Consider the piecewise function:
+          \[
+            f(x) = \begin{cases}
+              x^2 & \text{if } x < 1 \\\\
+              2 & \text{if } x = 1 \\\\
+              2x - 1 & \text{if } x > 1
+            \end{cases}
+          \]
+          Is \( f \) continuous at \( x = 1 \)? Prove or disprove.
+        </div>
+        
     <h3>1.2 Differentiation and Integration</h3>
     <p>Differentiation measures local linear change. Integration aggregates values over intervals and extends to Lebesgue integration in more advanced contexts.</p>
     <div class="example">
         <strong>Example:</strong> The Fundamental Theorem of Calculus states that if \( f \) is continuous on \( [a,b] \), and \( F(x) = \int_a^x f(t)\,dt \), then \( F'(x) = f(x) \).
     </div>
+
+    <h4>Proof and Worked Example</h4>
+<div class="example">
+  <strong>Example:</strong> Let \( f(x) = x^2 \). Show that its derivative at a point \( a \in \mathbb{R} \) is \( f'(a) = 2a \).
+</div>
+<div class="proof">
+  <strong>Proof:</strong> Using the definition of the derivative,
+  \[
+    f'(a) = \lim_{h \to 0} \frac{f(a + h) - f(a)}{h}
+         = \lim_{h \to 0} \frac{(a + h)^2 - a^2}{h}
+         = \lim_{h \to 0} \frac{2ah + h^2}{h}
+         = \lim_{h \to 0} (2a + h) = 2a.
+  \]
+</div>
+
+<div class="example">
+  <strong>Example:</strong> Evaluate \( \int_0^1 (3x^2 - 2x + 1)\,dx \).
+</div>
+<div class="proof">
+  <strong>Solution:</strong> Use basic antiderivatives:
+  \[
+    \int_0^1 (3x^2 - 2x + 1)\,dx = \left[ x^3 - x^2 + x \right]_0^1 = (1 - 1 + 1) - 0 = 1.
+  \]
+</div>
+
+<h4>Exercises</h4>
+<div class="exercise">
+  <strong>1.</strong> Let \( f(x) = \sqrt{x} \). Use the definition of the derivative to find \( f'(x) \) for \( x > 0 \).
+</div>
+<div class="exercise">
+  <strong>2.</strong> Prove that if \( f \) is differentiable at \( a \), then it is continuous at \( a \).
+</div>
+<div class="exercise">
+  <strong>3.</strong> Compute \( \int_1^2 \frac{1}{x}\,dx \) and interpret the result geometrically.
+</div>
+<div class="exercise">
+  <strong>4.</strong> State and prove the Fundamental Theorem of Calculus, Part I.
+</div>
 
     <h3>1.3 Metric Spaces</h3>
     <div class="definition">
@@ -63,6 +154,49 @@
         </ul>
     </div>
 
+    <h4>Proof and Worked Example</h4>
+    <div class="example">
+      <strong>Example:</strong> Show that the function \( d(x, y) = |x - y| \) defines a metric on \( \mathbb{R} \).
+    </div>
+    <div class="proof">
+      <strong>Proof:</strong> To verify that \( d(x, y) = |x - y| \) is a metric, check the three axioms:
+    
+      <ol>
+        <li><em>Non-negativity and identity:</em> \( |x - y| \geq 0 \), and \( |x - y| = 0 \iff x = y \).</li>
+        <li><em>Symmetry:</em> \( |x - y| = |y - x| \).</li>
+        <li><em>Triangle inequality:</em> For all \( x, y, z \in \mathbb{R} \):
+        \[
+          |x - z| \leq |x - y| + |y - z|.
+        \]
+        This follows from the standard triangle inequality for absolute value.
+        </li>
+      </ol>
+      Hence, \( d \) is a metric.
+    </div>
+    
+    <div class="example">
+      <strong>Example:</strong> Consider \( d(x, y) = (x - y)^2 \). Is this a metric?
+    </div>
+    <div class="proof">
+      <strong>Answer:</strong> No. Although non-negative and symmetric, it fails the triangle inequality. Consider:
+      \[
+        d(0, 1) + d(1, 2) = 1^2 + 1^2 = 2,\quad d(0, 2) = 4.
+      \]
+      Since \( 2 < 4 \), the triangle inequality fails.
+    </div>
+    
+    <h4>Exercises</h4>
+    <div class="exercise">
+      <strong>1.</strong> Prove that \( d(x, y) = \sqrt{(x_1 - y_1)^2 + (x_2 - y_2)^2} \) defines a metric on \( \mathbb{R}^2 \).
+    </div>
+    <div class="exercise">
+      <strong>2.</strong> Give an example of a set with a metric where not all triangles are isosceles or equilateral.
+    </div>
+    <div class="exercise">
+      <strong>3.</strong> Let \( d(x, y) = \min(1, |x - y|) \) on \( \mathbb{R} \). Prove this is a valid metric. What topology does it induce?
+    </div>
+    
+
     <h3>1.4 Completeness</h3>
     <div class="definition">
         <strong>Definition (Complete Metric Space):</strong> A metric space \( (X, d) \) is complete if every Cauchy sequence in \( X \) converges to a limit in \( X \).
@@ -71,6 +205,35 @@
         <strong>Example:</strong> \( \mathbb{R} \) with the usual metric \( d(x,y) = |x - y| \) is a complete metric space.
     </div>
 
+    <h4>Proof and Worked Example</h4>
+    <div class="example">
+      <strong>Example:</strong> Prove that \( \mathbb{R} \), with the usual metric \( d(x, y) = |x - y| \), is a complete metric space.
+    </div>
+    <div class="proof">
+      <strong>Proof:</strong> Let \( (x_n) \) be a Cauchy sequence in \( \mathbb{R} \). Then for every \( \varepsilon > 0 \), there exists \( N \in \mathbb{N} \) such that for all \( m, n \geq N \), \( |x_n - x_m| < \varepsilon \).
+    
+      Since \( \mathbb{R} \) is a complete ordered field, every Cauchy sequence converges to a limit \( x \in \mathbb{R} \). Therefore, \( \mathbb{R} \) is complete.
+    </div>
+    
+    <div class="example">
+      <strong>Example:</strong> Consider the metric space \( (0, 1) \) with the standard metric. Is it complete?
+    </div>
+    <div class="proof">
+      <strong>Answer:</strong> No. The sequence \( x_n = 1 - \frac{1}{n} \) is Cauchy in \( (0, 1) \), but it converges to 1, which is not in the open interval. Thus, \( (0, 1) \) is not complete.
+    </div>
+    
+    <h4>Exercises</h4>
+    <div class="exercise">
+      <strong>1.</strong> Prove that every convergent sequence is Cauchy. Is the converse always true?
+    </div>
+    <div class="exercise">
+      <strong>2.</strong> Show that the set of rational numbers \( \mathbb{Q} \) is not complete by constructing a Cauchy sequence that does not converge in \( \mathbb{Q} \).
+    </div>
+    <div class="exercise">
+      <strong>3.</strong> Let \( c_0 \) be the set of all real sequences converging to 0, with the sup norm. Prove that \( c_0 \) is a complete metric space.
+    </div>
+    
+
     <h3>1.5 Sequences and Series of Functions</h3>
     <p>We distinguish between pointwise and uniform convergence:</p>
     <div class="definition">
@@ -78,28 +241,462 @@
         \[ \forall \varepsilon > 0, \exists N \text{ such that } n \geq N \Rightarrow \sup_{x \in D} |f_n(x) - f(x)| < \varepsilon. \]
     </div>
 </div>
+<h4>Proof and Worked Example</h4>
+<div class="example">
+  <strong>Example:</strong> Let \( f_n(x) = \frac{x}{n} \) on \( [0,1] \). Show that \( f_n \to 0 \) uniformly.
+</div>
+<div class="proof">
+  <strong>Proof:</strong>
+  For each \( x \in [0,1] \),
+  \[
+    |f_n(x) - 0| = \left| \frac{x}{n} \right| \leq \frac{1}{n}.
+  \]
+  Hence,
+  \[
+    \sup_{x \in [0,1]} |f_n(x) - 0| \leq \frac{1}{n} \to 0,
+  \]
+  so \( f_n \to 0 \) uniformly on \( [0,1] \).
+</div>
+
+<div class="example">
+  <strong>Example:</strong> Let \( f_n(x) = x^n \) on \( [0,1] \). Show that \( f_n \to f \), where
+  \[
+    f(x) = \begin{cases}
+      0 & \text{if } 0 \leq x < 1 \\\\
+      1 & \text{if } x = 1
+    \end{cases}
+  \]
+  and determine if the convergence is uniform.
+</div>
+<div class="proof">
+  <strong>Answer:</strong> For \( x \in [0,1) \), \( x^n \to 0 \). At \( x = 1 \), \( x^n = 1 \). The pointwise limit is the function \( f \) defined above.
+
+  However, the convergence is not uniform:
+  \[
+    \sup_{x \in [0,1)} |x^n - 0| = \sup_{x \in [0,1)} x^n = 1 \text{ for all } n.
+  \]
+  Hence, the supremum does not go to zero, so the convergence is not uniform.
+</div>
+
+<h4>Exercises</h4>
+<div class="exercise">
+  <strong>1.</strong> Give an example of a sequence of functions that converges pointwise but not uniformly.
+</div>
+<div class="exercise">
+  <strong>2.</strong> Let \( f_n(x) = \frac{\sin(nx)}{n} \). Show that \( f_n \to 0 \) uniformly on \( \mathbb{R} \), but that the series \( \sum f_n \) does not converge uniformly.
+</div>
+<div class="exercise">
+  <strong>3.</strong> Prove that if \( f_n \to f \) uniformly and each \( f_n \) is continuous, then \( f \) is continuous.
+</div>
 
 <div class="chapter" id="chapter-2">
     <h2>Chapter 2: Normed Vector Spaces</h2>
-    <p>An introduction to vector spaces equipped with a norm.</p>
+    <p>This chapter introduces normed vector spaces — the building blocks of functional analysis. A norm assigns a notion of "length" or "size" to vectors in a vector space, generalizing the concept of Euclidean length.</p>
+
+    <h3>2.1 Definitions and Properties</h3>
     <div class="definition">
-        <strong>Definition (Norm)</strong>: A norm on a vector space \( V \) over \( \mathbb{R} \) or \( \mathbb{C} \) is a function \( \|\cdot\| : V \to [0, \infty) \) that satisfies positivity, homogeneity, and triangle inequality.
+        <strong>Definition (Norm):</strong> A norm on a vector space \( V \) is a function \( \|\cdot\| : V \to [0, \infty) \) such that for all \( x, y \in V \), and all scalars \( \alpha \):
+        <ul>
+            <li>\( \|x\| = 0 \Leftrightarrow x = 0 \)</li>
+            <li>\( \|\alpha x\| = |\alpha| \cdot \|x\| \)</li>
+            <li>\( \|x + y\| \leq \|x\| + \|y\| \) (Triangle Inequality)</li>
+        </ul>
+    </div>
+
+    <h3>2.2 Examples of Norms</h3>
+    <div class="example">
+        <strong>Example (Euclidean Norm):</strong> In \( \mathbb{R}^n \), the norm \( \|x\|_2 = \sqrt{\sum_{i=1}^n x_i^2} \) defines the standard Euclidean norm.
     </div>
     <div class="example">
-        <strong>Example:</strong> \( \mathbb{R}^n \) with \( \|x\|_2 = \sqrt{x_1^2 + \dots + x_n^2} \) is a normed space.
+        <strong>Example (\( p \)-Norms):</strong> For \( 1 \leq p < \infty \), define:
+        \[ \|x\|_p = \left(\sum_{i=1}^n |x_i|^p\right)^{1/p} \]
+        and for \( p = \infty \):
+        \[ \|x\|_\infty = \max_{1 \leq i \leq n} |x_i| \]
     </div>
+
+    <h3>2.3 Topological Structure</h3>
+    <p>The norm induces a metric on \( V \) via \( d(x, y) = \|x - y\| \), turning \( V \) into a metric space. This allows us to talk about convergence, continuity, open and closed sets, and compactness.</p>
+
+    <h3>2.4 Bounded Linear Operators</h3>
+    <div class="definition">
+        <strong>Definition (Bounded Operator):</strong> Let \( X, Y \) be normed spaces. A linear operator \( T : X \to Y \) is <em>bounded</em> if there exists \( C > 0 \) such that:
+        \[ \|Tx\|_Y \leq C \|x\|_X \quad \text{for all } x \in X. \]
+    </div>
+    <p>The set of all bounded linear operators from \( X \) to \( Y \), denoted \( \mathcal{B}(X, Y) \), forms a normed vector space with the operator norm:</p>
+    \[ \|T\| = \sup_{\|x\| \leq 1} \|Tx\| \]
+
+    <h3>2.5 Equivalent Norms</h3>
+    <p>Two norms \( \|\cdot\|_1 \) and \( \|\cdot\|_2 \) on a vector space \( V \) are <strong>equivalent</strong> if they induce the same topology, i.e., there exist constants \( c, C > 0 \) such that:</p>
+    \[ c\|x\|_1 \leq \|x\|_2 \leq C\|x\|_1 \quad \text{for all } x \in V. \]
+    <p>In finite dimensions, all norms are equivalent — a powerful simplification not available in infinite-dimensional spaces.</p>
 </div>
 
 <div class="chapter" id="chapter-3">
     <h2>Chapter 3: Banach Spaces</h2>
-    <p>A Banach space is a complete normed vector space.</p>
-    <div class="theorem">
-        <strong>Theorem (Banach Fixed-Point)</strong>: Every contraction on a complete metric space has exactly one fixed point.
+    <p>A Banach space is a normed vector space that is complete with respect to the metric induced by its norm. Completeness ensures the existence of limits for all Cauchy sequences, making Banach spaces fundamental to analysis.</p>
+
+    <h3>3.1 Definition and Basic Properties</h3>
+    <div class="definition">
+        <strong>Definition (Banach Space):</strong> A normed vector space \( (X, \|\cdot\|) \) is called a <em>Banach space</em> if every Cauchy sequence in \( X \) converges to an element in \( X \).
     </div>
-    <p>Applications include solving integral and differential equations.</p>
+
+    <div class="example">
+        <strong>Example:</strong> \( \mathbb{R}^n \), with any norm, is a Banach space because \( \mathbb{R}^n \) is complete.
+    </div>
+
+    <div class="example">
+        <strong>Example:</strong> The space \( \ell^p \) (sequences \( x = (x_n) \) such that \( \sum |x_n|^p < \infty \)) is a Banach space for \( 1 \leq p \leq \infty \).
+    </div>
+
+    <h3>3.2 Key Theorems</h3>
+    <div class="theorem">
+        <strong>Theorem (Uniform Boundedness Principle):</strong> Let \( X \) be a Banach space and \( \{T_\alpha\} \subset \mathcal{B}(X, Y) \). If \( \sup_\alpha \|T_\alpha x\| < \infty \) for all \( x \in X \), then \( \sup_\alpha \|T_\alpha\| < \infty \).
+    </div>
+
+    <div class="theorem">
+        <strong>Theorem (Hahn-Banach):</strong> If \( p: V \to \mathbb{R} \) is a sublinear function and \( f: U \to \mathbb{R} \) is a linear functional dominated by \( p \) on a subspace \( U \subset V \), then \( f \) can be extended to the whole space without increasing its norm.
+    </div>
+
+    <div class="theorem">
+        <strong>Theorem (Open Mapping Theorem):</strong> If \( T: X \to Y \) is a surjective bounded linear operator between Banach spaces, then \( T \) maps open sets to open sets.
+    </div>
+
+    <div class="theorem">
+        <strong>Theorem (Closed Graph Theorem):</strong> If \( T: X \to Y \) is a linear operator between Banach spaces, and its graph is closed in \( X \times Y \), then \( T \) is bounded.
+    </div>
+
+    <h3>3.3 Dual Spaces</h3>
+    <p>The dual space \( X^* \) of a normed space \( X \) consists of all bounded linear functionals on \( X \). It is always a Banach space, even if \( X \) is not.</p>
+    <div class="example">
+        <strong>Example:</strong> If \( X = \ell^p \), then \( X^* = \ell^q \), where \( 1/p + 1/q = 1 \), for \( 1 < p < \infty \).
+    </div>
+
+    <h3>3.4 Reflexivity</h3>
+    <div class="definition">
+        <strong>Definition (Reflexive Space):</strong> A Banach space \( X \) is reflexive if the natural map from \( X \) into its double dual \( X^{**} \) is surjective.
+    </div>
+    <p>Reflexivity has implications for compactness and weak convergence. Spaces like \( \ell^p \) for \( 1 < p < \infty \) are reflexive; \( \ell^1 \) and \( \ell^\infty \) are not.</p>
 </div>
+<div class="chapter" id="chapter-4">
+    <h2>Chapter 4: Inner-Product Spaces and Hilbert Spaces</h2>
+    <p>This chapter introduces inner-product spaces, which allow for the definition of geometric concepts like angles and orthogonality. A Hilbert space is a complete inner-product space and serves as the foundation for many areas in mathematics and physics.</p>
 
-<!-- More chapters will be added iteratively -->
+    <h3>4.1 Inner-Product Spaces</h3>
+    <div class="definition">
+        <strong>Definition (Inner Product):</strong> An inner product on a vector space \( V \) over \( \mathbb{R} \) or \( \mathbb{C} \) is a function \( \langle \cdot, \cdot \rangle : V \times V \to \mathbb{F} \) satisfying:
+        <ul>
+            <li>\( \langle x, x \rangle \geq 0 \) and \( \langle x, x \rangle = 0 \iff x = 0 \)</li>
+            <li>\( \langle x, y \rangle = \overline{\langle y, x \rangle} \)</li>
+            <li>\( \langle ax + by, z \rangle = a\langle x, z \rangle + b\langle y, z \rangle \)</li>
+        </ul>
+    </div>
 
+    <div class="example">
+        <strong>Example:</strong> In \( \mathbb{R}^n \), the standard inner product is \( \langle x, y \rangle = \sum_{i=1}^n x_i y_i \).
+    </div>
+
+    <p>The norm induced by an inner product is \( \|x\| = \sqrt{\langle x, x \rangle} \).</p>
+
+    <h3>4.2 Hilbert Spaces</h3>
+    <div class="definition">
+        <strong>Definition (Hilbert Space):</strong> An inner-product space \( H \) is called a <em>Hilbert space</em> if it is complete with respect to the norm induced by its inner product.
+    </div>
+
+    <div class="example">
+        <strong>Example:</strong> The space \( \ell^2 \), consisting of square-summable sequences \( x = (x_n) \) with \( \sum |x_n|^2 < \infty \), is a Hilbert space.
+    </div>
+
+    <h3>4.3 Orthogonality and Projections</h3>
+    <p>Two vectors \( x, y \) are orthogonal if \( \langle x, y \rangle = 0 \). The concept of orthogonal projection is central in Hilbert space theory.</p>
+    <div class="theorem">
+        <strong>Theorem (Projection Theorem):</strong> Let \( H \) be a Hilbert space and \( M \subset H \) a closed subspace. Then for any \( x \in H \), there exists a unique \( m \in M \) such that \( \|x - m\| = \inf_{y \in M} \|x - y\| \). Moreover, \( x - m \) is orthogonal to \( M \).
+    </div>
+
+    <h3>4.4 Orthonormal Bases</h3>
+    <div class="definition">
+        <strong>Definition (Orthonormal Set):</strong> A set \( \{e_i\} \subset H \) is orthonormal if \( \langle e_i, e_j \rangle = \delta_{ij} \).
+    </div>
+    <p>Every separable Hilbert space has a countable orthonormal basis \( \{e_n\} \), and any element \( x \in H \) can be expressed as:</p>
+    \[ x = \sum_n \langle x, e_n \rangle e_n \]
+
+    <h3>4.5 Riesz Representation Theorem</h3>
+    <div class="theorem">
+        <strong>Theorem (Riesz Representation):</strong> Let \( H \) be a Hilbert space. For every bounded linear functional \( f \in H^* \), there exists a unique \( y \in H \) such that \( f(x) = \langle x, y \rangle \) for all \( x \in H \).
+    </div>
+</div>
+<div class="chapter" id="chapter-5">
+    <h2>Chapter 5: The “Great Theorems” of Linear Functional Analysis in Normed Vector Spaces</h2>
+    <p>This chapter presents the foundational theorems that underpin much of modern functional analysis. These results guarantee the structure and behavior of linear maps between normed and Banach spaces, providing critical tools for analysis and PDE theory.</p>
+
+    <h3>5.1 Hahn–Banach Theorem</h3>
+    <div class="theorem">
+        <strong>Theorem (Hahn–Banach):</strong> Let \( p: V \to \mathbb{R} \) be a sublinear function and \( f: U \to \mathbb{R} \) a linear functional on a subspace \( U \subset V \) such that \( f(x) \leq p(x) \) for all \( x \in U \). Then \( f \) can be extended to a linear functional \( F: V \to \mathbb{R} \) such that \( F(x) \leq p(x) \) for all \( x \in V \).
+    </div>
+
+    <p>This result allows bounded linear functionals defined on subspaces to be extended to the whole space, preserving boundedness.</p>
+
+    <h3>5.2 Uniform Boundedness Principle</h3>
+    <div class="theorem">
+        <strong>Theorem (Uniform Boundedness Principle):</strong> Let \( X \) be a Banach space and \( \{T_\alpha\} \subset \mathcal{B}(X, Y) \) a family of bounded linear operators. If for every \( x \in X \), the set \( \{\|T_\alpha x\|\} \) is bounded, then \( \sup_\alpha \|T_\alpha\| < \infty \).
+    </div>
+
+    <p>This principle ensures pointwise boundedness implies uniform boundedness on bounded sets in Banach spaces.</p>
+
+    <h3>5.3 Open Mapping Theorem</h3>
+    <div class="theorem">
+        <strong>Theorem (Open Mapping):</strong> Let \( T: X \to Y \) be a bounded linear operator between Banach spaces and assume \( T \) is surjective. Then \( T \) maps open subsets of \( X \) onto open subsets of \( Y \).
+    </div>
+
+    <p>This guarantees the continuity of inverse operators when they exist and are defined on the whole space.</p>
+
+    <h3>5.4 Closed Graph Theorem</h3>
+    <div class="theorem">
+        <strong>Theorem (Closed Graph):</strong> Let \( T: X \to Y \) be a linear operator between Banach spaces. If the graph of \( T \), defined by \( \{(x, Tx) \mid x \in X\} \), is closed in \( X \times Y \), then \( T \) is bounded.
+    </div>
+
+    <p>This result is useful when the operator cannot be explicitly bounded, but one can show that its graph is closed.</p>
+
+    <h3>5.5 Application: Inverse Mapping</h3>
+    <div class="theorem">
+        <strong>Corollary (Inverse Mapping Theorem):</strong> If \( T: X \to Y \) is a bijective bounded linear operator between Banach spaces, then \( T^{-1}: Y \to X \) is also bounded.
+    </div>
+
+    <p>This corollary follows from the Open Mapping Theorem and is foundational for operator theory and solving linear PDEs.</p>
+</div>
+<div class="chapter" id="chapter-6">
+    <h2>Chapter 6: Locally Convex Spaces and Distributions</h2>
+    <p>Locally convex spaces generalize normed spaces and are fundamental to modern analysis, particularly in the study of distributions and topological vector spaces.</p>
+
+    <h3>6.1 Locally Convex Spaces</h3>
+    <div class="definition">
+        <strong>Definition (Locally Convex Space):</strong> A topological vector space \( X \) is locally convex if its topology can be generated by a family of seminorms \( \{p_i\}_{i \in I} \).
+    </div>
+    <p>This allows for a flexible framework in which convergence and continuity can be studied even without a norm.</p>
+
+    <div class="example">
+        <strong>Example:</strong> The space of continuous functions \( C([a,b]) \), with the family of seminorms \( p_K(f) = \sup_{x \in K} |f(x)| \) over compact subsets \( K \subset [a,b] \), is locally convex.
+    </div>
+
+    <h3>6.2 Seminorms</h3>
+    <div class="definition">
+        <strong>Definition (Seminorm):</strong> A seminorm on a vector space \( V \) is a function \( p: V \to \mathbb{R} \) such that:
+        <ul>
+            <li>\( p(x + y) \leq p(x) + p(y) \)</li>
+            <li>\( p(\alpha x) = |\alpha| p(x) \)</li>
+        </ul>
+        <p>Unlike a norm, \( p(x) = 0 \) does not imply \( x = 0 \).</p>
+    </div>
+
+    <h3>6.3 Distributions</h3>
+    <p>Distributions extend the concept of functions and derivatives. They allow one to rigorously define solutions to differential equations that involve discontinuities or singularities.</p>
+
+    <div class="definition">
+        <strong>Definition (Distribution):</strong> A distribution is a continuous linear functional on the space \( \mathcal{D}(\mathbb{R}^n) \) of compactly supported smooth functions (test functions).
+    </div>
+
+    <div class="example">
+        <strong>Example:</strong> The Dirac delta \( \delta \) is a distribution defined by \( \delta(\phi) = \phi(0) \) for all test functions \( \phi \).
+    </div>
+
+    <h3>6.4 Weak Derivatives</h3>
+    <p>In the distributional sense, a function \( f \) has a weak derivative \( f' \) if:</p>
+    \[ \int f(x) \phi'(x) dx = -\int f'(x) \phi(x) dx \quad \text{for all } \phi \in \mathcal{D}(\mathbb{R}) \]
+
+    <p>This definition makes it possible to differentiate functions that are not classically differentiable, such as step functions.</p>
+</div>
+<div class="chapter" id="chapter-7">
+    <h2>Chapter 7: Fourier Transform and Calderón–Zygmund Singular Integral Operators</h2>
+    <p>This chapter explores the Fourier transform as a powerful tool for analyzing functions and distributions, and introduces Calderón–Zygmund theory as a framework for singular integral operators, central in modern harmonic analysis and PDEs.</p>
+
+    <h3>7.1 The Fourier Transform</h3>
+    <div class="definition">
+        <strong>Definition (Fourier Transform):</strong> For \( f \in L^1(\mathbb{R}^n) \), the Fourier transform is defined as:
+        \[ \hat{f}(\xi) = \int_{\mathbb{R}^n} f(x) e^{-2\pi i x \cdot \xi} \, dx \]
+    </div>
+
+    <p>The Fourier transform extends to \( L^2(\mathbb{R}^n) \) as a unitary operator and to tempered distributions \( \mathcal{S}'(\mathbb{R}^n) \).</p>
+
+    <h3>7.2 Properties of the Fourier Transform</h3>
+    <ul>
+        <li><strong>Linearity:</strong> \( \widehat{af + bg} = a\hat{f} + b\hat{g} \)</li>
+        <li><strong>Translation:</strong> \( \widehat{f(x - y)}(\xi) = e^{-2\pi i y \cdot \xi} \hat{f}(\xi) \)</li>
+        <li><strong>Differentiation:</strong> \( \widehat{\partial_j f}(\xi) = 2\pi i \xi_j \hat{f}(\xi) \)</li>
+        <li><strong>Convolution:</strong> \( \widehat{f * g} = \hat{f} \cdot \hat{g} \)</li>
+    </ul>
+
+    <h3>7.3 Tempered Distributions and Schwartz Space</h3>
+    <p>The Schwartz space \( \mathcal{S}(\mathbb{R}^n) \) consists of smooth, rapidly decaying functions. Its dual \( \mathcal{S}'(\mathbb{R}^n) \) contains tempered distributions, which support generalized Fourier transforms.</p>
+
+    <div class="example">
+        <strong>Example:</strong> The Fourier transform of the Dirac delta \( \delta \) is the constant function 1.
+    </div>
+
+    <h3>7.4 Calderón–Zygmund Operators</h3>
+    <div class="definition">
+        <strong>Definition (Singular Integral Operator):</strong> A linear operator \( T \) is a Calderón–Zygmund singular integral operator if it is bounded on \( L^2(\mathbb{R}^n) \), and its kernel \( K(x, y) \) satisfies:
+        <ul>
+            <li>\( |K(x, y)| \leq \frac{C}{|x - y|^n} \)</li>
+            <li>\( |K(x, y) - K(x', y)| + |K(y, x) - K(y, x')| \leq C \frac{|x - x'|}{|x - y|^{n+1}} \)</li>
+        </ul>
+    </div>
+
+    <p>Such operators are foundational in harmonic analysis and appear in the study of singular integrals, PDEs, and boundary value problems.</p>
+</div>
+<div class="chapter" id="chapter-8">
+    <h2>Chapter 8: Applications to Linear Partial Differential Equations</h2>
+    <p>This chapter discusses how the tools of functional analysis apply to the study of linear partial differential equations (PDEs), especially through the lens of weak formulations, existence and uniqueness results, and the use of Sobolev spaces.</p>
+
+    <h3>8.1 Weak Formulation of PDEs</h3>
+    <p>In functional analysis, PDEs are often reformulated in a weak (distributional) sense, allowing us to study solutions that may not be classically differentiable.</p>
+    <div class="example">
+        <strong>Example:</strong> The weak formulation of the Poisson equation \( -\Delta u = f \) in \( \Omega \subset \mathbb{R}^n \) becomes:
+        \[ \int_\Omega \nabla u \cdot \nabla v \, dx = \int_\Omega f v \, dx \quad \text{for all } v \in H_0^1(\Omega) \]
+    </div>
+
+    <h3>8.2 Sobolev Spaces</h3>
+    <div class="definition">
+        <strong>Definition (Sobolev Space):</strong> For \( k \in \mathbb{N} \) and \( 1 \leq p \leq \infty \), the Sobolev space \( W^{k,p}(\Omega) \) consists of functions \( u \in L^p(\Omega) \) whose weak derivatives up to order \( k \) also lie in \( L^p(\Omega) \).
+    </div>
+    <p>Hilbertian Sobolev spaces \( H^k(\Omega) := W^{k,2}(\Omega) \) are particularly useful due to their inner product structure.</p>
+
+    <h3>8.3 Lax–Milgram Theorem</h3>
+    <div class="theorem">
+        <strong>Theorem (Lax–Milgram):</strong> Let \( H \) be a Hilbert space, \( a: H \times H \to \mathbb{R} \) a continuous coercive bilinear form, and \( f \in H^* \). Then there exists a unique \( u \in H \) such that:
+        \[ a(u, v) = f(v) \quad \text{for all } v \in H \]
+    </div>
+    <p>This theorem ensures existence and uniqueness of weak solutions to many linear PDEs.</p>
+
+    <h3>8.4 Green’s Functions and Fundamental Solutions</h3>
+    <p>Green’s functions represent the influence of point sources and are crucial in solving linear PDEs explicitly in certain domains.</p>
+
+    <h3>8.5 Elliptic Regularity</h3>
+    <p>Under suitable conditions, weak solutions to elliptic PDEs are in fact smooth. This is a cornerstone of modern PDE theory, linking weak solutions to classical solutions.</p>
+</div>
+<div class="chapter" id="chapter-9">
+    <h2>Chapter 9: Differential Calculus in Normed Vector Spaces</h2>
+    <p>This chapter introduces the extension of differential calculus to normed vector spaces, providing the foundation for analyzing smooth maps in infinite-dimensional settings.</p>
+  
+    <h3>9.1 Fréchet Derivative</h3>
+    <div class="definition">
+      <strong>Definition (Fréchet Derivative):</strong> Let \( X \) and \( Y \) be normed vector spaces, and \( U \subset X \) open. A function \( f: U \to Y \) is Fréchet differentiable at \( x \in U \) if there exists a bounded linear map \( A: X \to Y \) such that:
+      \[ \lim_{h \to 0} \frac{\|f(x + h) - f(x) - A(h)\|_Y}{\|h\|_X} = 0. \]
+      The map \( A \) is called the Fréchet derivative of \( f \) at \( x \), denoted \( Df(x) \).
+    </div>
+  
+    <h3>9.2 Gâteaux Derivative</h3>
+    <div class="definition">
+      <strong>Definition (Gâteaux Derivative):</strong> The Gâteaux derivative of \( f: U \to Y \) at \( x \in U \) in the direction \( h \in X \) is:
+      \[ D_G f(x; h) = \lim_{t \to 0} \frac{f(x + t h) - f(x)}{t}, \]
+      if the limit exists.
+    </div>
+    <p>Unlike the Fréchet derivative, the Gâteaux derivative is directional and may not be linear or continuous in \( h \).</p>
+  
+    <h3>9.3 Relationship Between Derivatives</h3>
+    <p>If \( f \) is Fréchet differentiable at \( x \), then it is also Gâteaux differentiable at \( x \), and the derivatives coincide. The converse is generally false without additional conditions (e.g., continuity or uniform boundedness).</p>
+  
+    <h3>9.4 Chain Rule and Higher Derivatives</h3>
+    <p>If \( f: U \to Y \) and \( g: V \to Z \) are Fréchet differentiable and \( f(U) \subset V \), then \( g \circ f \) is Fréchet differentiable and:
+    \[ D(g \circ f)(x) = Dg(f(x)) \circ Df(x). \]</p>
+    <p>Higher derivatives can be defined inductively: \( D^2 f(x) = D(Df)(x) \), resulting in multilinear maps representing Hessians in finite or infinite-dimensional settings.</p>
+  
+    <h3>9.5 Taylor Expansion</h3>
+    <p>If \( f \) is \( n \)-times Fréchet differentiable at \( x \), we have a Taylor expansion:
+    \[ f(x + h) = f(x) + Df(x)h + \frac{1}{2!}D^2f(x)(h,h) + \dots + \frac{1}{n!}D^n f(x)(h,\dots,h) + o(\|h\|^n). \]</p>
+  </div>
+  <div class="chapter" id="chapter-10">
+    <h2>Chapter 10: Differential Geometry in \( \mathbb{R}^n \)</h2>
+    <p>This chapter introduces the geometric structures of smooth manifolds and submanifolds embedded in Euclidean spaces. It focuses on tangent spaces, vector fields, and the differential geometry of surfaces.</p>
+  
+    <h3>10.1 Tangent Vectors and Spaces</h3>
+    <div class="definition">
+      <strong>Definition (Tangent Vector):</strong> At a point \( p \in \mathbb{R}^n \), a tangent vector can be represented as a directional derivative operator acting on smooth functions.
+    </div>
+    <p>The tangent space \( T_p \mathbb{R}^n \) is isomorphic to \( \mathbb{R}^n \) itself.</p>
+  
+    <h3>10.2 Submanifolds</h3>
+    <div class="definition">
+      <strong>Definition (Submanifold):</strong> A subset \( M \subset \mathbb{R}^n \) is a \( k \)-dimensional submanifold if for every point \( p \in M \), there exists a neighborhood \( U \subset \mathbb{R}^n \) and a smooth map \( \phi: U \to \mathbb{R}^{n-k} \) such that:
+      \[ M \cap U = \{ x \in U : \phi(x) = 0 \}, \quad D\phi \text{ has full rank}. \]
+    </div>
+  
+    <h3>10.3 Vector Fields and Flows</h3>
+    <p>A vector field assigns a tangent vector to each point of a manifold. Flows generated by vector fields describe dynamical systems and evolution over time.</p>
+  
+    <h3>10.4 The Differential and Pushforward</h3>
+    <div class="definition">
+      <strong>Definition (Differential):</strong> Let \( f: M \to N \) be a smooth map between manifolds. The differential \( df_p: T_pM \to T_{f(p)}N \) is a linear map defined by:
+      \[ df_p(v)(g) = v(g \circ f), \quad \text{for all } g \in C^\infty(N). \]
+    </div>
+  
+    <h3>10.5 Curvature and the Second Fundamental Form</h3>
+    <p>The second fundamental form measures how a surface bends in \( \mathbb{R}^n \). It encodes extrinsic curvature and leads to geometric quantities like mean and Gaussian curvature.</p>
+  
+    <div class="example">
+      <strong>Example:</strong> For a surface \( S \subset \mathbb{R}^3 \), the Gaussian curvature at a point is the product of the principal curvatures, and the mean curvature is their average.
+    </div>
+  </div>
+  <div class="chapter" id="chapter-11">
+    <h2>Chapter 11: Calculus of Variations</h2>
+    <p>This chapter develops the fundamental framework of the calculus of variations, which seeks to find functions that minimize or extremize functionals—integrals depending on unknown functions and their derivatives.</p>
+  
+    <h3>11.1 Functionals and Extremals</h3>
+    <div class="definition">
+      <strong>Definition (Functional):</strong> A functional assigns a real number to a function. The typical form is:
+      \[ J[y] = \int_a^b L(x, y(x), y'(x)) \, dx \]
+      where \( y \) lies in a suitable function space.
+    </div>
+  
+    <p>The goal is to find functions \( y \) such that \( J[y] \) is minimized or maximized.</p>
+  
+    <h3>11.2 Euler–Lagrange Equation</h3>
+    <div class="theorem">
+      <strong>Theorem (Euler–Lagrange):</strong> If \( y \) is a minimizer of \( J[y] \), then it satisfies:
+      \[ \frac{\partial L}{\partial y} - \frac{d}{dx} \left( \frac{\partial L}{\partial y'} \right) = 0 \]
+      under appropriate smoothness and boundary conditions.
+    </div>
+  
+    <h3>11.3 Natural Boundary Conditions</h3>
+    <p>When variations are not fixed at the endpoints, additional terms in the variation lead to boundary conditions that must be satisfied by extremals.</p>
+  
+    <h3>11.4 Higher-Order and Multiple Variables</h3>
+    <p>The Euler–Lagrange formalism extends to higher derivatives and multiple dependent variables. For a second-order Lagrangian:</p>
+    \[ J[y] = \int_a^b L(x, y, y', y'') \, dx \Rightarrow \text{a more complex Euler–Lagrange equation} \]
+  
+    <h3>11.5 Applications</h3>
+    <ul>
+      <li><strong>Geodesics:</strong> Curves minimizing distance in a Riemannian manifold.</li>
+      <li><strong>Physics:</strong> Lagrangian and Hamiltonian mechanics derive from extremal principles.</li>
+      <li><strong>Elasticity:</strong> Minimization of strain energy in deformable bodies.</li>
+    </ul>
+  </div>
+  <div class="chapter" id="chapter-12">
+    <h2>Chapter 12: “Great Theorems” of Nonlinear Functional Analysis</h2>
+    <p>This chapter presents foundational theorems in nonlinear functional analysis, particularly those built on topological methods such as Brouwer's and Schauder's fixed point theorems and Leray–Schauder degree theory.</p>
+  
+    <h3>12.1 Brouwer’s Fixed Point Theorem</h3>
+    <div class="theorem">
+      <strong>Theorem (Brouwer):</strong> Every continuous map \( f: B^n \to B^n \) from the closed unit ball in \( \mathbb{R}^n \) to itself has at least one fixed point.
+    </div>
+  
+    <p>This theorem is fundamental in finite dimensions and forms the basis for generalizations in infinite-dimensional spaces.</p>
+  
+    <h3>12.2 Schauder Fixed Point Theorem</h3>
+    <div class="theorem">
+      <strong>Theorem (Schauder):</strong> Let \( C \) be a closed convex subset of a Banach space and \( T: C \to C \) a continuous compact operator. Then \( T \) has at least one fixed point.
+    </div>
+  
+    <p>This extends Brouwer's theorem to infinite dimensions and is widely applicable to nonlinear PDEs.</p>
+  
+    <h3>12.3 Leray–Schauder Degree</h3>
+    <p>The Leray–Schauder degree generalizes the topological degree from finite dimensions to compact perturbations of the identity in Banach spaces. It provides existence results for operator equations \( T(x) = x \).</p>
+  
+    <h3>12.4 Applications</h3>
+    <ul>
+      <li><strong>Existence of solutions:</strong> Used in nonlinear boundary value problems and differential inclusions.</li>
+      <li><strong>Bifurcation theory:</strong> Analyzing solution branches of nonlinear equations.</li>
+      <li><strong>Nonlinear eigenvalue problems:</strong> Generalizing spectral theory to nonlinear maps.</li>
+    </ul>
+  </div>
+  
 </body>
 </html>
